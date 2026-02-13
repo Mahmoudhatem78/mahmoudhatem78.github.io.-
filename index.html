@@ -144,7 +144,7 @@ nav ul li a:hover {
 <canvas id="stars"></canvas>
 
 <!-- اللوجو المتحرك -->
-<img id="logo" src="https://raw.githubusercontent.com/mahmoudhatem78/mahmoudhatem78.github.io/main/logo.png" alt="Hoda Store Logo">
+<img id="logo" src="https://raw.githubusercontent.com/mahmoudhatem78/mahmoudhatem78.github.io/main/f9618777aaaf1b3ada4aee260565043b.jpg" alt="Hoda Store Logo">
 
 <nav>
     <div class="logo-text">Hoda Store</div>
@@ -222,6 +222,7 @@ window.addEventListener('resize', () => {
     canvas.height = window.innerHeight;
 });
 </script>
+
 <!-- ------------------- كود تحريك اللوجو ------------------- -->
 <script>
 const logo = document.getElementById('logo');
@@ -232,173 +233,8 @@ document.addEventListener('mousemove', e => {
     const deltaX = e.clientX - centerX;
     const deltaY = e.clientY - centerY;
 
-    // زاوية دوران حسب الماوس
     const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI) + 90;
-
-    // تطبيق الحركة والدوران
     logo.style.transform = `translateX(-50%) rotate(${angle}deg)`;
-});
-</script>
-<!-- ------------------------------------------------------------ -->
-
-</body>
-</html>
-
-.hero p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-}
-
-.btn {
-    padding: 12px 25px;
-    background-color: #ff0000;
-    color: #fff;
-    font-weight: 700;
-    border-radius: 5px;
-    transition: 0.3s;
-}
-
-.btn:hover {
-    background-color: #ffcc00;
-    color: #000;
-    cursor: pointer;
-}
-
-/* منتجات */
-.products-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
-    padding: 40px 20px;
-    position: relative;
-    z-index: 2;
-}
-.product {
-    background-color: rgba(0,0,0,0.6);
-    border-radius: 10px;
-    padding: 20px;
-    width: 220px;
-    text-align: center;
-    transition: 0.3s;
-}
-.product img {
-    width: 200px;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-.product:hover {
-    transform: scale(1.05);
-}
-.product h3 {
-    margin: 15px 0 5px;
-}
-.product p {
-    margin: 0;
-}
-
-#contact {
-    text-align: center;
-    padding: 40px 20px;
-    position: relative;
-    z-index: 2;
-}
-
-/* طبقة النجوم فوق الخلفية */
-#stars {
-  position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index: 1;
-}
-</style>
-</head>
-<body>
-
-<!-- طبقة النجوم -->
-<canvas id="stars"></canvas>
-
-<nav>
-    <div class="logo">Hoda Store</div>
-    <ul>
-        <li><a href="#home">الرئيسية</a></li>
-        <li><a href="#products">المنتجات</a></li>
-        <li><a href="#contact">تواصل معنا</a></li>
-    </ul>
-</nav>
-
-<section id="home" class="hero">
-    <h1>مرحبا بكم في Hoda Store</h1>
-    <p>متجر الملابس العصري</p>
-    <a href="#products" class="btn">تسوق الآن</a>
-</section>
-
-<section id="products">
-    <h2 style="text-align:center;">منتجاتنا</h2>
-    <div class="products-container">
-        <div class="product">
-            <a href="shirt1.html">
-                <img src="https://raw.githubusercontent.com/mahmoudhatem78/mahmoudhatem78.github.io/main/38fee50492cec08eff1370c0f0cd167d.jpg" alt="منتج 1">
-            </a>
-            <h3>منتج 1</h3>
-            <p>600 جنيه</p>
-        </div>
-        <!-- ممكن تضيف منتجات تانية بنفس الشكل -->
-    </div>
-</section>
-
-<section id="contact">
-    <h2>تواصل معنا</h2>
-    <p>البريد الإلكتروني: ahmghytu@gmail.com</p>
-    <p>الهاتف: +20 100 000 0000</p>
-</section>
-
-<!-- ------------------- كود النجوم المتحركة ------------------- -->
-<script>
-const canvas = document.getElementById('stars');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-const numStars = 200;
-const stars = [];
-
-for (let i = 0; i < numStars; i++) {
-    stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.5,
-        speed: 0.2 + Math.random() * 0.5
-    });
-}
-
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "white";
-    ctx.shadowColor = "white";
-    ctx.shadowBlur = 5;
-
-    for (let i = 0; i < numStars; i++) {
-        let s = stars[i];
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fill();
-
-        // تحرك النجوم من اليسار لليمين
-        s.x += s.speed;
-        if (s.x > canvas.width) s.x = 0;
-    }
-    requestAnimationFrame(draw);
-}
-
-draw();
-
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
 });
 </script>
 <!-- ------------------------------------------------------------ -->
