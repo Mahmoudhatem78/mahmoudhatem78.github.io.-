@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,61 +10,36 @@
     <nav>
         <div class="logo">Hoda Store</div>
         <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#products">Products</a></li>
-            <li><a href="#order">Order</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#home">الرئيسية</a></li>
+            <li><a href="#products">المنتجات</a></li>
+            <li><a href="#contact">تواصل معنا</a></li>
         </ul>
     </nav>
 
     <section id="home" class="hero">
-        <h1>Welcome to Hoda Store</h1>
-        <p>Your premium clothing brand</p>
-        <a href="#products" class="btn">Shop Now</a>
+        <h1>مرحبا بكم في Hoda Store</h1>
+        <p>متجر الملابس العصري</p>
+        <a href="#products" class="btn">تسوق الآن</a>
     </section>
 
     <section id="products">
-        <h2>Our Products</h2>
+        <h2 style="text-align:center;">منتجاتنا</h2>
         <div class="products-container">
             <div class="product">
-    <!-- لما تضغط على الصورة تروح لصفحة المنتج shirt1.html -->
-    <a href="shirt1.html">
-        <img src="https://raw.githubusercontent.com/mahmoudhatem78/mahmoudhatem78.github.io/main/38fee50492cec08eff1370c0f0cd167d.jpg" alt="منتج Hoda Store">
-    </a>
-    <h3>منتج Hoda Store</h3>
-    <p>600 جنيه</p>
+                <a href="shirt1.html">
+                    <img src="https://raw.githubusercontent.com/mahmoudhatem78/mahmoudhatem78.github.io/main/38fee50492cec08eff1370c0f0cd167d.jpg" alt="منتج 1">
+                </a>
+                <h3>منتج 1</h3>
+                <p>600 جنيه</p>
             </div>
-            </div>
-            <div class="product">
-                <img src="38fee50492cec08eff1370c0f0cd167d.jpg" alt="Shirt 2">
-                <h3>Black Hoodie</h3>
-                <p>500جنيه</p>
-            </div>
-            <div class="product">
-                <img src="https://via.placeholder.com/200x250?text=Shirt+3" alt="Shirt 3">
-                <h3>Red Jacket</h3>
-                <p>600جنيه</p>
-            </div>
+            <!-- ممكن تضيف منتجات تانية بنفس الشكل -->
         </div>
     </section>
 
-    <section id="order">
-        <h2>Place Your Order</h2>
-        <form action="https://formspree.io/f/mnqlbqed" method="POST">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="_replyto" placeholder="Your Email" required>
-            <input type="text" name="product" placeholder="Product Name" required>
-            <textarea name="message" placeholder="Additional Notes"></textarea>
-            <button type="submit">Submit Order</button>
-        </form>
-    </section>
-
     <section id="contact">
-        <h2>Contact Us</h2>
-        <p>Email: contact@hodastore.com</p>
-        <p>Phone: +20 100 000 0000</p>
+        <h2 style="text-align:center;">تواصل معنا</h2>
+        <p style="text-align:center;">البريد الإلكتروني: contact@hodastore.com</p>
+        <p style="text-align:center;">الهاتف: +20 100 000 0000</p>
     </section>
-
-    <script src="script.js"></script>
 </body>
 </html>
