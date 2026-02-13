@@ -1,41 +1,185 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>منتج Hoda Store</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تيشيرت عصري - Hoda Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Cairo', sans-serif;
+  color: #fff;
+  background: black;
+  overflow-x: hidden;
+}
+
+a {
+  color: #ffcc00;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.product-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+  position: relative;
+}
+
+.product-image img {
+  width: 300px;
+  height: 350px;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  border-radius: 10px;
+}
+
+/* إضاءة glow خلف التيشيرت */
+.product-image::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(255,200,0,0.4) 0%, rgba(255,200,0,0) 70%);
+  border-radius: 50%;
+  filter: blur(25px);
+  z-index: 1;
+}
+
+/* فورم الطلب */
+form {
+  background-color: rgba(0,0,0,0.6);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  margin: auto;
+}
+
+input, select, textarea, button {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 5px;
+  border: none;
+  font-family: 'Cairo', sans-serif;
+}
+
+button {
+  background-color: #ff0000;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #ffcc00;
+  color: #000;
+}
+
+/* طبقة النجوم */
+#stars {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index: 0;
+}
+</style>
 </head>
 <body>
-  <nav>
-    <div class="logo">Hoda Store</div>
-    <ul>
-      <li><a href="index.html">الرئيسية</a></li>
-      <li><a href="index.html#products">المنتجات</a></li>
-      <li><a href="#order">طلب المنتج</a></li>
-      <li><a href="index.html#contact">تواصل معنا</a></li>
-    </ul>
-  </nav>
 
-  <section class="product-details">
-    <h1>منتج Hoda Store</h1>
-    <img src="https://raw.githubusercontent.com/mahmoudhatem78/mahmoudhatem78.github.io/main/38fee50492cec08eff1370c0f0cd167d.jpg" 
-         alt="منتج Hoda Store">
-    <p>تفاصيل المنتج: مصنوع بجودة عالية.</p>
-    <p>الألوان المتاحة: أسود، أحمر، أبيض</p>
-    <p>السعر: 600 جنيه</p>
-  </section>
+<canvas id="stars"></canvas>
 
-  <section id="order">
-    <h2>اطلب هذا المنتج</h2>
-    <!-- الفورم مضبوط على الرابط الجديد من Formspree -->
-    <form action="https://formspree.io/f/xeelawlz" method="POST">
-      <input type="text" name="name" placeholder="اسمك" required>
-      <input type="email" name="_replyto" placeholder="البريد الإلكتروني" required>
-      <input type="text" name="product" value="منتج Hoda Store" readonly>
-      <textarea name="message" placeholder="ملاحظات إضافية"></textarea>
-      <button type="submit">إرسال الطلب</button>
-    </form>
-  </section>
+<div class="container">
+  <h1>تيشيرت عصري</h1>
+  <div class="product-image">
+    <img src="Picsart_26-02-13_22-03-08-041.png" alt="تيشيرت Hoda Store">
+  </div>
+  <h2>السعر: 600 جنيه</h2>
+  <p>وصف المنتج: تيشيرت عصري من خامة ممتازة، متوفر بألوان متعددة.</p>
+
+  <form action="https://formspree.io/f/xeelawlz" method="POST">
+    <label>الاسم:</label>
+    <input type="text" name="name" required>
+    <label>البريد الإلكتروني:</label>
+    <input type="email" name="_replyto" required>
+    <label>الكمية:</label>
+    <input type="number" name="quantity" value="1" min="1">
+    <label>اللون:</label>
+    <select name="color">
+      <option value="أسود">أسود</option>
+      <option value="أحمر">أحمر</option>
+      <option value="أبيض">أبيض</option>
+    </select>
+    <label>ملاحظات:</label>
+    <textarea name="message" rows="4" placeholder="اكتب ملاحظاتك هنا"></textarea>
+    <button type="submit">اطلب الآن</button>
+  </form>
+</div>
+
+<!-- ------------------- كود النجوم ------------------- -->
+<script>
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const numStars = 200;
+const stars = [];
+
+for (let i = 0; i < numStars; i++) {
+    stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.5,
+        speed: 0.2 + Math.random() * 0.5
+    });
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "white";
+    ctx.shadowColor = "white";
+    ctx.shadowBlur = 5;
+
+    for (let i = 0; i < numStars; i++) {
+        let s = stars[i];
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+        s.x += s.speed;
+        if (s.x > canvas.width) s.x = 0;
+    }
+    requestAnimationFrame(draw);
+}
+draw();
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+</script>
+
 </body>
 </html>
