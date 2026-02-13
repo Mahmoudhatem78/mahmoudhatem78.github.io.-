@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منتج Hoda Store</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <div class="logo">Hoda Store</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="#order">Order</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="product-details">
+    <h1>منتج Hoda Store</h1>
+    <img src="https://raw.githubusercontent.com/mahmoudhatem78/mahmoudhatem78.github.io/main/38fee50492cec08eff1370c0f0cd167d.jpg" 
+         alt="منتج Hoda Store" style="width:300px;">
+    <p>تفاصيل المنتج: مصنوع بجودة عالية.</p>
+    <p>الألوان المتاحة: أسود، أحمر، أبيض</p>
+    <p>السعر: 600 جنيه</p>
+  </section>
+
+  <section id="order">
+    <h2>اطلب هذا المنتج</h2>
+    <form action="https://formspree.io/f/mnqlbqed" method="POST">
+      <input type="text" name="name" placeholder="اسمك" required>
+      <input type="email" name="_replyto" placeholder="البريد الإلكتروني" required>
+      <input type="text" name="product" value="منتج Hoda Store" readonly>
+      <textarea name="message" placeholder="ملاحظات إضافية"></textarea>
+      <button type="submit">إرسال الطلب</button>
+    </form>
+  </section>
+</body>
+</html>
