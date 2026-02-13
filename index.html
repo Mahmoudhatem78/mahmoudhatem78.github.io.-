@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoda Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">Hoda Store</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#order">Order</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <h1>Welcome to Hoda Store</h1>
+        <p>Your premium clothing brand</p>
+        <a href="#products" class="btn">Shop Now</a>
+    </section>
+
+    <section id="products">
+        <h2>Our Products</h2>
+        <div class="products-container">
+            <div class="product">
+                <img src="https://via.placeholder.com/200x250?text=Shirt+1" alt="Shirt 1">
+                <h3>Red T-Shirt</h3>
+                <p>$25</p>
+            </div>
+            <div class="product">
+                <img src="https://via.placeholder.com/200x250?text=Shirt+2" alt="Shirt 2">
+                <h3>Black Hoodie</h3>
+                <p>$40</p>
+            </div>
+            <div class="product">
+                <img src="https://via.placeholder.com/200x250?text=Shirt+3" alt="Shirt 3">
+                <h3>Red Jacket</h3>
+                <p>$60</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="order">
+        <h2>Place Your Order</h2>
+        <form action="https://formspree.io/f/mnqlbqed" method="POST">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="_replyto" placeholder="Your Email" required>
+            <input type="text" name="product" placeholder="Product Name" required>
+            <textarea name="message" placeholder="Additional Notes"></textarea>
+            <button type="submit">Submit Order</button>
+        </form>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Email: contact@hodastore.com</p>
+        <p>Phone: +20 100 000 0000</p>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
