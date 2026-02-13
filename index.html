@@ -1,45 +1,206 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoda Store</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hoda Store</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: 'Roboto', sans-serif;
+  color: #fff;
+  background: black;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: rgba(0,0,0,0.7);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+nav ul li a:hover {
+    color: #ffcc00;
+}
+
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.btn {
+    padding: 12px 25px;
+    background-color: #ff0000;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: #ffcc00;
+    color: #000;
+    cursor: pointer;
+}
+
+/* طبقة النجوم */
+#stars {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index: 1;
+}
+
+.products-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 2;
+}
+.product {
+    background-color: rgba(0,0,0,0.6);
+    border-radius: 10px;
+    padding: 20px;
+    width: 220px;
+    text-align: center;
+    transition: 0.3s;
+}
+.product img {
+    width: 200px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.product:hover {
+    transform: scale(1.05);
+}
+.product h3 {
+    margin: 15px 0 5px;
+}
+.product p {
+    margin: 0;
+}
+</style>
 </head>
 <body>
-    <nav>
-        <div class="logo">Hoda Store</div>
-        <ul>
-            <li><a href="#home">الرئيسية</a></li>
-            <li><a href="#products">المنتجات</a></li>
-            <li><a href="#contact">تواصل معنا</a></li>
-        </ul>
-    </nav>
+<canvas id="stars"></canvas>
 
-    <section id="home" class="hero">
-        <h1>مرحبا بكم في Hoda Store</h1>
-        <p>متجر الملابس العصري</p>
-        <a href="#products" class="btn">تسوق الآن</a>
-    </section>
+<nav>
+    <div class="logo">Hoda Store</div>
+    <ul>
+        <li><a href="#home">الرئيسية</a></li>
+        <li><a href="#products">المنتجات</a></li>
+        <li><a href="#contact">تواصل معنا</a></li>
+    </ul>
+</nav>
 
-    <section id="products">
-        <h2 style="text-align:center;">منتجاتنا</h2>
-        <div class="products-container">
-            <div class="product">
-                <a href="shirt1.html">
-                    <img src="https://raw.githubusercontent.com/mahmoudhatem78/mahmoudhatem78.github.io/main/38fee50492cec08eff1370c0f0cd167d.jpg" alt="منتج 1">
-                </a>
-                <h3>منتج 1</h3>
-                <p>600 جنيه</p>
-            </div>
-            <!-- ممكن تضيف منتجات تانية بنفس الشكل -->
+<section id="home" class="hero">
+    <h1>مرحبا بكم في Hoda Store</h1>
+    <p>متجر الملابس العصري</p>
+    <a href="#products" class="btn">تسوق الآن</a>
+</section>
+
+<section id="products">
+    <h2 style="text-align:center;">منتجاتنا</h2>
+    <div class="products-container">
+        <div class="product">
+            <a href="shirt1.html">
+                <img src="https://raw.githubusercontent.com/mahmoudhatem78/mahmoudhatem78.github.io/main/38fee50492cec08eff1370c0f0cd167d.jpg" alt="منتج 1">
+            </a>
+            <h3>منتج 1</h3>
+            <p>600 جنيه</p>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id="contact">
-        <h2 style="text-align:center;">تواصل معنا</h2>
-        <p style="text-align:center;">البريد الإلكتروني: contact@hodastore.com</p>
-        <p style="text-align:center;">الهاتف: +20 100 000 0000</p>
-    </section>
+<section id="contact">
+    <h2 style="text-align:center;">تواصل معنا</h2>
+    <p style="text-align:center;">البريد الإلكتروني: ahmghytu@gmail.com</p>
+    <p style="text-align:center;">الهاتف: +20 100 000 0000</p>
+</section>
+
+<script>
+// كود النجوم المتحركة
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const numStars = 200;
+const stars = [];
+
+for (let i = 0; i < numStars; i++) {
+    stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.5,
+        d: Math.random() * 0.5
+    });
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "white";
+    ctx.shadowColor = "white";
+    ctx.shadowBlur = 5;
+
+    for (let i = 0; i < numStars; i++) {
+        let s = stars[i];
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        s.x += s.d;
+        s.y += s.d;
+
+        if (s.x > canvas.width) s.x = 0;
+        if (s.y > canvas.height) s.y = 0;
+    }
+    requestAnimationFrame(draw);
+}
+
+draw();
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+</script>
 </body>
 </html>
