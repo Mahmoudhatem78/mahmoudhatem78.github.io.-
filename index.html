@@ -165,12 +165,30 @@ nav ul li a:hover {
     <h2 style="text-align:center;">منتجاتنا</h2>
     <div class="products-container">
         <div class="product">
-            <a href="shirt1.html">
-                <img src="https://raw.githubusercontent.com/mahmoudhatem78/mahmoudhatem78.github.io/main/38fee50492cec08eff1370c0f0cd167d.jpg" alt="منتج 1">
-            </a>
-            <h3>منتج 1</h3>
-            <p>600 جنيه</p>
+    <a href="shirt1.html">
+        <div style="position: relative; display: inline-block;">
+            <!-- الإضاءة الخلفية -->
+            <div style="
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 220px;
+                height: 250px;
+                background: radial-gradient(circle, rgba(255,200,0,0.4) 0%, rgba(255,200,0,0) 70%);
+                border-radius: 50%;
+                z-index: 1;
+                filter: blur(20px);
+            "></div>
+            <!-- صورة التيشيرت -->
+            <img src="https://raw.githubusercontent.com/mahmoudhatem78/mahmoudhatem78.github.io/main/3e809b5c861d965144bff8a3deed5977.jpg" 
+                 alt="تيشيرت Hoda Store" 
+                 style="width:200px; height:250px; object-fit:contain; border-radius:10px; position: relative; z-index: 2;">
         </div>
+    </a>
+    <h3>تيشيرت عصري</h3>
+    <p>600 جنيه</p>
+</div>
     </div>
 </section>
 
