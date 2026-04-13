@@ -1,265 +1,342 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hoda Store</title>
-<link rel="stylesheet" href="style.css">
-<style>
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow-x: hidden;
-  font-family: 'Roboto', sans-serif;
-  color: #fff;
-  background: black;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X STORE | Professional Experience</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background-color: rgba(0,0,0,0.7);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
+        :root {
+            --gold: #FFD700;
+            --bg-black: #000;
+            --smoke-white: rgba(255, 255, 255, 0.15);
+            --accent: #ffffff;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
 
-nav .logo-text {
-    font-size: 1.8rem;
-    font-weight: 700;
-}
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: var(--bg-black); font-family: 'Orbitron', sans-serif;
+            color: white; overflow-x: hidden; scroll-behavior: smooth;
+        }
 
-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 20px;
-}
+        /* --- خلفية النجوم --- */
+        #starfield { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; transition: opacity 1s; }
 
-nav ul li a:hover {
-    color: #ffcc00;
-}
+        .page {
+            position: relative; z-index: 10; width: 100%; min-height: 100vh;
+            display: none; flex-direction: column; align-items: center; padding: 40px 20px;
+            box-sizing: border-box;
+        }
 
-.hero {
-    text-align: center;
-    padding: 80px 20px;
-    position: relative;
-    z-index: 2;
-}
+        .active { display: flex; animation: fadeIn 0.8s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-.hero h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-}
+        /* --- الواجهة الرئيسية --- */
+        .splash-content { justify-content: space-between; height: 100vh; }
+        .store-name { font-size: 2.5rem; font-weight: 900; letter-spacing: 12px; text-shadow: 0 0 20px rgba(255,255,255,0.5); margin-top: 10px; text-align: center;}
+        .main-menu { display: flex; flex-direction: column; gap: 30px; text-align: center; }
+        .menu-item { font-size: 1.5rem; letter-spacing: 8px; cursor: pointer; opacity: 0.6; transition: 0.4s; position: relative; }
+        .menu-item::after { content: ''; position: absolute; bottom: -5px; left: 50%; width: 0; height: 2px; background: white; transition: 0.3s; transform: translateX(-50%); }
+        .menu-item:hover { opacity: 1; text-shadow: 0 0 15px white; transform: scale(1.1); }
+        .menu-item:hover::after { width: 50%; }
 
-.hero p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-}
+        /* --- شبكة المنتجات --- */
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; width: 100%; max-width: 1200px; margin-top: 40px; }
+        .product-card {
+            background: var(--glass); border-radius: 20px; padding: 25px; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); position: relative; overflow: hidden;
+        }
+        .product-card:hover { border-color: rgba(255,255,255,0.5); transform: translateY(-15px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .img-box { width: 100%; aspect-ratio: 1/1; object-fit: contain; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); transition: 0.5s; }
+        .product-card:hover .img-box { transform: scale(1.1); filter: drop-shadow(0 0 25px white); }
 
-.btn {
-    padding: 12px 25px;
-    background-color: #ff0000;
-    color: #fff;
-    font-weight: 700;
-    border-radius: 5px;
-    transition: 0.3s;
-}
+        /* --- تفاصيل المنتج والدخان --- */
+        #productDetailPage { background: #000; }
+        .smoke-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .smoke-blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.4; animation: drift 15s infinite alternate ease-in-out; }
+        .sb-1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%); }
+        .sb-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(150,150,150,0.1) 0%, transparent 70%); }
+        @keyframes drift { from { transform: translate(0,0); } to { transform: translate(40px, 40px); } }
 
-.btn:hover {
-    background-color: #ffcc00;
-    color: #000;
-    cursor: pointer;
-}
+        .detail-container { display: flex; flex-wrap: wrap; gap: 40px; max-width: 1100px; width: 100%; margin-top: 50px; justify-content: center; z-index: 2; }
+        .detail-img { flex: 1; min-width: 300px; max-width: 500px; aspect-ratio: 1/1; object-fit: contain; filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.3)); }
+        .detail-info { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 25px; background: rgba(255, 255, 255, 0.03); padding: 40px; border-radius: 30px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); }
+        
+        /* --- السلة (Cart Side Panel) --- */
+        #cartPanel {
+            position: fixed; top: 0; right: -400px; width: 350px; height: 100%; background: rgba(10,10,10,0.95); 
+            z-index: 1000; backdrop-filter: blur(20px); transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1); 
+            padding: 30px; box-sizing: border-box; border-left: 1px solid rgba(255,255,255,0.1);
+        }
+        #cartPanel.open { right: 0; box-shadow: -20px 0 50px rgba(0,0,0,0.8); }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 20px; }
+        .cart-items { max-height: 60vh; overflow-y: auto; }
+        .cart-item { display: flex; gap: 15px; margin-bottom: 20px; align-items: center; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; }
+        .cart-item img { width: 50px; height: 50px; border-radius: 5px; }
 
-/* منتجات */
-.products-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
-    padding: 40px 20px;
-    position: relative;
-    z-index: 2;
-}
-.product {
-    background-color: rgba(0,0,0,0.6);
-    border-radius: 10px;
-    padding: 20px;
-    width: 220px;
-    text-align: center;
-    transition: 0.3s;
-}
-.product img {
-    width: 200px;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-.product:hover {
-    transform: scale(1.05);
-}
-.product h3 {
-    margin: 15px 0 5px;
-}
-.product p {
-    margin: 0;
-}
+        /* --- الأزرار والتفاعلات --- */
+        .btn-buy, .btn-cart { 
+            padding: 18px; border: none; font-weight: bold; cursor: pointer; letter-spacing: 2px; transition: 0.3s; border-radius: 5px;
+        }
+        .btn-buy { background: white; color: black; }
+        .btn-cart { background: transparent; color: white; border: 1px solid white; }
+        .btn-buy:hover { background: #ccc; transform: scale(1.05); }
+        .btn-cart:hover { background: white; color: black; }
+        
+        .nav-cart-btn { position: fixed; top: 30px; right: 30px; z-index: 100; cursor: pointer; background: white; color: black; padding: 10px 20px; border-radius: 30px; font-weight: bold; }
 
-#contact {
-    text-align: center;
-    padding: 40px 20px;
-    position: relative;
-    z-index: 2;
-}
+        /* --- Notification --- */
+        #notification {
+            position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
+            background: white; color: black; padding: 15px 30px; border-radius: 50px;
+            font-weight: bold; transition: 0.5s; z-index: 2000;
+        }
+        #notification.show { bottom: 30px; }
 
-/* طبقة النجوم */
-#stars {
-  position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index: 1;
-}
-
-/* اللوجو المتحرك */
-#logo {
-  position: absolute;
-  width: 120px;
-  height: 120px;
-  top: 50px;
-  left: 50%;
-  transform: translateX(-50%) rotate(0deg);
-  transition: transform 0.1s linear;
-  z-index: 200;
-}
-</style>
+        .back-link { cursor: pointer; font-size: 0.9rem; letter-spacing: 3px; margin-bottom: 20px; display: inline-block; }
+    </style>
 </head>
 <body>
 
-<!-- طبقة النجوم -->
-<canvas id="stars"></canvas>
+    <canvas id="starfield"></canvas>
+    
+    <div class="nav-cart-btn" onclick="toggleCart()">CART (<span id="cartCount">0</span>)</div>
 
-<!-- اللوجو المتحرك -->
-<img id="logo" src="Picsart_26-02-13_22-11-48-449.png" alt="Hoda Store Logo">
-
-<nav>
-    <div class="logo-text">Hoda Store</div>
-    <ul>
-        <li><a href="#home">الرئيسية</a></li>
-        <li><a href="#products">المنتجات</a></li>
-        <li><a href="#contact">تواصل معنا</a></li>
-    </ul>
-</nav>
-
-<section id="home" class="hero">
-    <h1>مرحبا بكم في Hoda Store</h1>
-    <p>متجر الملابس العصري</p>
-    <a href="#products" class="btn">تسوق الآن</a>
-</section>
-
-<section id="products">
-    <h2 style="text-align:center;">منتجاتنا</h2>
-    <div class="products-container">
-        <div class="product">
-    <a href="shirt1.html">
-        <div style="position: relative; display: flex; justify-content: center; align-items: center; width: 220px; height: 250px;">
-            <!-- الإضاءة الخلفية -->
-            <div style="
-                position: absolute;
-                width: 220px;
-                height: 250px;
-                background: radial-gradient(circle, rgba(255,200,0,0.4) 0%, rgba(255,200,0,0) 70%);
-                border-radius: 50%;
-                filter: blur(20px);
-                z-index: 1;
-            "></div>
-
-            <!-- صورة التيشيرت -->
-            <img src="Picsart_26-02-13_22-03-08-041.png"
-                 alt="تيشيرت Hoda Store"
-                 style="
-                    width: 180px;
-                    height: 230px;
-                    object-fit: contain;
-                    position: relative;
-                    z-index: 2;
-                 ">
+    <div id="cartPanel">
+        <div class="cart-header">
+            <h3>YOUR CART</h3>
+            <span onclick="toggleCart()" style="cursor:pointer">CLOSE ×</span>
         </div>
-    </a>
-    <h3>تيشيرت عصري</h3>
-    <p>600 جنيه</p>
-</div>
+        <div id="cartItems" class="cart-items">
+            </div>
+        <div style="margin-top: 20px; border-top: 1px solid #333; padding-top: 20px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
+                <span>TOTAL:</span>
+                <span id="cartTotal">0.00 EGP</span>
+            </div>
+            <button class="btn-buy" style="width:100%" onclick="checkoutWhatsApp()">ORDER ON WHATSAPP</button>
+        </div>
     </div>
-</section>
 
-<section id="contact">
-    <h2>تواصل معنا</h2>
-    <p>البريد الإلكتروني: ahmghytu@gmail.com</p>
-    <p>الهاتف01023708424</p>
-</section>
+    <div id="notification">ADDED TO CART!</div>
 
-<!-- ------------------- كود النجوم ------------------- -->
-<script>
-const canvas = document.getElementById('stars');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+    <div id="splashPage" class="page splash-content active">
+        <div style="text-align: center; margin-top: 50px;">
+            <svg width="120" height="120" viewBox="0 0 200 200" id="logoContainer" style="cursor: grab;">
+                <g id="logo-mesh" stroke="white" stroke-width="12" fill="none">
+                    <path d="M50,150 L150,50" /><path d="M150,150 L50,50" />
+                    <circle cx="100" cy="100" r="80" stroke-width="2" stroke-dasharray="10,10" opacity="0.3" />
+                </g>
+            </svg>
+            <div class="store-name">X STORE</div>
+            <p style="letter-spacing: 5px; opacity: 0.5; font-size: 0.7rem;">PREMIUM STREETWEAR</p>
+        </div>
+        <nav class="main-menu">
+            <div class="menu-item" onclick="navigateTo('catalogPage')">EXPLORE</div>
+            <div class="menu-item" onclick="navigateTo('catalogPage')">COLLECTIONS</div>
+            <div class="menu-item">ABOUT</div>
+        </nav>
+        <div style="padding-bottom: 40px; opacity: 0.6;">
+            <a href="https://www.instagram.com/xce____7oda__x" target="_blank" style="color:white; margin: 0 15px; text-decoration:none;">IG</a>
+            <a href="https://www.tiktok.com/@628..2" target="_blank" style="color:white; margin: 0 15px; text-decoration:none;">TK</a>
+        </div>
+    </div>
 
-const numStars = 200;
-const stars = [];
+    <div id="catalogPage" class="page">
+        <div style="width: 100%; max-width: 1200px;">
+            <div class="back-link" onclick="navigateTo('splashPage')">← RETURN</div>
+            <h2 style="letter-spacing: 5px;">COLLECTIONS / 2026</h2>
+        </div>
+        <div class="products-grid" id="productsGrid"></div>
+    </div>
 
-for (let i = 0; i < numStars; i++) {
-    stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.5,
-        speed: 0.2 + Math.random() * 0.5
-    });
-}
+    <div id="productDetailPage" class="page">
+        <div class="smoke-container">
+            <div class="smoke-blob sb-1"></div>
+            <div class="smoke-blob sb-2"></div>
+        </div>
+        <div style="width: 100%; max-width: 1100px;">
+            <div class="back-link" onclick="navigateTo('catalogPage')">← BACK TO CATALOG</div>
+        </div>
+        <div class="detail-container" id="productDetailContent"></div>
+    </div>
 
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "white";
-    ctx.shadowColor = "white";
-    ctx.shadowBlur = 5;
+    <script>
+        // البيانات (تم الإبقاء عليها كما هي مع إضافة صور افتراضية)
+        const products = [
+            { id: 1, name: "UNIVERSITY HOODIE", price: 999.00, img: "Picsart_26-02-14_16-25-30-082.png" },
+            { id: 2, name: "RASPBERRY SWEAT", price: 850.00, img: "Picsart_26-02-14_16-25-05-041.png" },
+            { id: 3, name: "NY BLACK EDITION", price: 999.00, img: "Picsart_26-02-14_16-24-39-633.png" },
+            { id: 4, name: "AMAZING OVERSIZE", price: 750.00, img: "Picsart_26-02-13_22-03-08-041.png" },
+            { id: 5, name: "VINTAGE WHITE", price: 900.00, img: "https://placehold.co/600x600/000/fff?text=VINTAGE" },
+            { id: 6, name: "DARK SHADOW X", price: 1100.00, img: "https://placehold.co/600x600/000/fff?text=SHADOW" }
+        ];
 
-    for (let i = 0; i < numStars; i++) {
-        let s = stars[i];
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fill();
-        s.x += s.speed;
-        if (s.x > canvas.width) s.x = 0;
-    }
-    requestAnimationFrame(draw);
-}
-draw();
+        let cart = [];
+        const whatsappNumber = "201000000000";
 
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
-</script>
+        // --- نظام التنقل المحسن ---
+        function navigateTo(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById(pageId);
+            target.classList.add('active');
+            
+            document.getElementById('starfield').style.opacity = (pageId === 'splashPage') ? "1" : "0.3";
+            window.scrollTo(0,0);
+        }
 
-<!-- ------------------- كود تحريك اللوجو ------------------- -->
-<script>
-const logo = document.getElementById('logo');
-document.addEventListener('mousemove', e => {
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
+        // --- بناء المتجر ---
+        const grid = document.getElementById('productsGrid');
+        products.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.onclick = () => openProduct(p);
+            card.innerHTML = `
+                <img src="${p.img}" class="img-box" onerror="this.src='https://placehold.co/400x400/111/444?text=X+STORE'">
+                <div style="margin-top:20px; letter-spacing:2px; font-weight:bold;">${p.name}</div>
+                <div style="color:rgba(255,255,255,0.5); margin-top:8px;">EGP ${p.price.toFixed(2)}</div>
+            `;
+            grid.appendChild(card);
+        });
 
-    const deltaX = e.clientX - centerX;
-    const deltaY = e.clientY - centerY;
+        function openProduct(product) {
+            const detailBox = document.getElementById('productDetailContent');
+            detailBox.innerHTML = `
+                <img src="${product.img}" class="detail-img" onerror="this.src='https://placehold.co/400x400/111/444?text=X+STORE'">
+                <div class="detail-info">
+                    <h1 style="letter-spacing:5px;">${product.name}</h1>
+                    <div style="font-size: 2rem; font-weight: bold;">EGP ${product.price.toFixed(2)}</div>
+                    <p style="color:#888; line-height:1.6; font-family: sans-serif;">Premium quality materials designed for the modern movement. Limited edition release by X STORE.</p>
+                    
+                    <div>
+                        <p style="font-size:0.7rem; margin-bottom:10px;">SELECT SIZE</p>
+                        <div style="display:flex; gap:10px;" id="sizePicker">
+                            ${['S','M','L','XL'].map(s => `<button class="size-btn" style="background:none; color:white; border:1px solid #444; padding:10px 20px; cursor:pointer;" onclick="selectSize(this)">${s}</button>`).join('')}
+                        </div>
+                    </div>
 
-    const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI) + 90;
-    logo.style.transform = `translateX(-50%) rotate(${angle}deg)`;
-});
-</script>
-<!-- ------------------------------------------------------------ -->
+                    <div class="action-btns" style="display:grid; gap:15px; margin-top:20px;">
+                        <button class="btn-buy" onclick="quickBuy(${product.id})">BUY IT NOW</button>
+                        <button class="btn-cart" onclick="addToCart(${product.id})">ADD TO CART</button>
+                    </div>
+                </div>
+            `;
+            navigateTo('productDetailPage');
+            // Select M by default
+            setTimeout(() => { document.querySelector('#sizePicker button:nth-child(2)').click(); }, 10);
+        }
 
+        function selectSize(btn) {
+            document.querySelectorAll('#sizePicker button').forEach(b => {
+                b.style.background = 'none';
+                b.style.color = 'white';
+            });
+            btn.style.background = 'white';
+            btn.style.color = 'black';
+            btn.dataset.selected = "true";
+        }
+
+        // --- نظام السلة الاحترافي ---
+        function toggleCart() {
+            document.getElementById('cartPanel').classList.toggle('open');
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const size = Array.from(document.querySelectorAll('#sizePicker button')).find(b => b.dataset.selected === "true")?.innerText || "M";
+            
+            cart.push({ ...product, selectedSize: size });
+            updateCartUI();
+            showNotification();
+        }
+
+        function updateCartUI() {
+            const cartContainer = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cartCount');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            cartCount.innerText = cart.length;
+            cartContainer.innerHTML = '';
+            
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                cartContainer.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.img}" onerror="this.src='https://placehold.co/50x50/111/444'">
+                        <div style="flex:1">
+                            <div style="font-size:0.8rem; font-weight:bold;">${item.name}</div>
+                            <div style="font-size:0.7rem; color:#888;">Size: ${item.selectedSize}</div>
+                        </div>
+                        <div style="font-size:0.8rem;">${item.price}</div>
+                        <span onclick="removeFromCart(${index})" style="cursor:pointer; color:red; margin-left:10px;">×</span>
+                    </div>
+                `;
+            });
+            cartTotal.innerText = total.toFixed(2) + " EGP";
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function showNotification() {
+            const n = document.getElementById('notification');
+            n.classList.add('show');
+            setTimeout(() => n.classList.remove('show'), 3000);
+        }
+
+        function checkoutWhatsApp() {
+            if(cart.length === 0) return alert("سلتك فارغة!");
+            let message = "New Order from X STORE:%0A------------------%0A";
+            cart.forEach(item => {
+                message += `- ${item.name} (Size: ${item.selectedSize}) - ${item.price} EGP%0A`;
+            });
+            message += `------------------%0ATotal: ${document.getElementById('cartTotal').innerText}`;
+            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+        }
+
+        function quickBuy(id) {
+            addToCart(id);
+            toggleCart();
+        }
+
+        // --- محرك النجوم (كما هو مع تحسين) ---
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        function initStars() {
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            stars = [];
+            for(let i=0; i<400; i++) stars.push({ x: Math.random()*canvas.width-canvas.width/2, y: Math.random()*canvas.height-canvas.height/2, z: Math.random()*canvas.width, o: Math.random() });
+        }
+        function drawStars() {
+            ctx.fillStyle = "black"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            for(let s of stars) {
+                s.z -= 2; if (s.z <= 0) s.z = canvas.width;
+                let x = (s.x / s.z) * canvas.width + canvas.width/2;
+                let y = (s.y / s.z) * canvas.height + canvas.height/2;
+                let r = (1 - s.z/canvas.width) * 2;
+                ctx.beginPath(); ctx.fillStyle = `rgba(255, 255, 255, ${s.o})`; ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
+            }
+            requestAnimationFrame(drawStars);
+        }
+        window.addEventListener('resize', initStars); initStars(); drawStars();
+
+        // --- تفاعل اللوجو 3D ---
+        const container = document.getElementById('logoContainer');
+        const mesh = document.getElementById('logo-mesh');
+        let isDown = false; let startX, startY;
+        const start = (e) => { isDown = true; startX = (e.pageX || e.touches[0].pageX); startY = (e.pageY || e.touches[0].pageY); mesh.style.transition = "none"; };
+        const move = (e) => { if(!isDown) return; let x = (e.pageX || e.touches[0].pageX); let y = (e.pageY || e.touches[0].pageY);
+            let rotY = (x - startX) * 0.5; let rotX = (startY - y) * 0.5;
+            mesh.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`; };
+        const end = () => { isDown = false; mesh.style.transition = "transform 0.8s ease"; mesh.style.transform = `rotateX(0deg) rotateY(0deg)`; };
+        container.addEventListener('mousedown', start); window.addEventListener('mousemove', move); window.addEventListener('mouseup', end);
+        container.addEventListener('touchstart', start); window.addEventListener('touchmove', move); window.addEventListener('touchend', end);
+    </script>
 </body>
 </html>
