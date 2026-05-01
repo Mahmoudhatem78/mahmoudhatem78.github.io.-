@@ -1,409 +1,77 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>حوكشه STORE</title>
-
-<!-- ================= GOOGLE FONT ================= -->
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;400;700;900&display=swap" rel="stylesheet">
+<title>MIX Café</title>
 
 <style>
-/* ================= ROOT ================= */
-:root{
-    --bg:#000;
-    --text:#fff;
-    --glass:rgba(255,255,255,0.04);
-    --border:rgba(255,255,255,0.1);
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    text-align: center;
 }
 
-/* ================= RESET ================= */
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+.container {
+    padding: 30px;
 }
 
-body{
-    font-family:'Cairo',sans-serif;
-    background:#000;
-    color:#fff;
-    overflow-x:hidden;
+.logo {
+    font-size: 40px;
+    font-weight: bold;
+    color: black;
 }
 
-/* ================= VIDEO BACKGROUND ================= */
-/* === CHANGE VIDEO HERE === */
-#bg-video{
-    position:fixed;
-    top:0;left:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    opacity:.18;
-    z-index:-2;
+.tagline {
+    margin-top: 10px;
+    color: #555;
 }
 
-.overlay{
-    position:fixed;
-    inset:0;
-    background:linear-gradient(to bottom,#000,#000);
-    z-index:-1;
+.button {
+    display: block;
+    width: 80%;
+    max-width: 300px;
+    margin: 15px auto;
+    padding: 15px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    background: black;
+    color: white;
+    transition: 0.3s;
 }
 
-/* ================= LOADER ================= */
-#loader{
-    position:fixed;
-    inset:0;
-    background:#000;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
+.button:hover {
+    background: #333;
 }
 
-.loader-bar{
-    width:200px;
-    height:2px;
-    background:#222;
-    overflow:hidden;
-    margin-bottom:20px;
-}
-
-.loader-bar span{
-    display:block;
-    height:100%;
-    width:0%;
-    background:#fff;
-    animation:load 2s forwards;
-}
-
-@keyframes load{
-    to{width:100%;}
-}
-
-/* ================= INTRO ================= */
-#intro{
-    position:fixed;
-    inset:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    text-align:center;
-    background:rgba(0,0,0,.9);
-    z-index:999;
-    opacity:0;
-    pointer-events:none;
-}
-
-#intro.active{
-    opacity:1;
-    pointer-events:auto;
-}
-
-.logo{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    border:2px solid #fff;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:40px;
-    animation:spin 10s linear infinite, float 4s ease-in-out infinite;
-}
-
-@keyframes spin{
-    from{transform:rotate(0)}
-    to{transform:rotate(360deg)}
-}
-
-@keyframes float{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-10px)}
-}
-
-.btn{
-    border:1px solid #fff;
-    padding:12px 28px;
-    margin-top:20px;
-    cursor:pointer;
-    background:transparent;
-    color:#fff;
-    transition:.3s;
-}
-
-.btn:hover{
-    background:#fff;
-    color:#000;
-}
-
-/* ================= HEADER ================= */
-header{
-    position:fixed;
-    top:0;
-    width:100%;
-    padding:20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    z-index:100;
-    transition:.4s;
-}
-
-header.scrolled{
-    backdrop-filter:blur(20px);
-    background:rgba(0,0,0,.6);
-    border-bottom:1px solid var(--border);
-}
-
-/* ================= HERO ================= */
-.hero{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    flex-direction:column;
-}
-
-.hero h1{
-    font-size:clamp(42px,10vw,110px);
-}
-
-.hero p{
-    opacity:.7;
-    max-width:500px;
-}
-
-/* ================= PRODUCTS ================= */
-.products{
-    padding:100px 20px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:30px;
-}
-
-.card{
-    background:var(--glass);
-    border:1px solid var(--border);
-    padding:20px;
-    backdrop-filter:blur(20px);
-    transition:.3s;
-    cursor:pointer;
-}
-
-.card:hover{
-    transform:translateY(-10px) scale(1.02);
-    box-shadow:0 0 20px rgba(255,255,255,.2);
-}
-
-.price{
-    font-weight:bold;
-}
-
-/* ================= CART ================= */
-#cart{
-    position:fixed;
-    left:-100%;
-    top:0;
-    width:400px;
-    height:100%;
-    background:#080808;
-    transition:.4s;
-    padding:20px;
-    z-index:200;
-}
-
-#cart.active{
-    left:0;
-}
-
-/* ================= CHECKOUT ================= */
-#checkout{
-    position:fixed;
-    inset:0;
-    display:none;
-    justify-content:center;
-    align-items:center;
-    background:rgba(0,0,0,.95);
-    z-index:300;
-}
-
-.form{
-    border:1px solid #fff;
-    padding:20px;
-    width:90%;
-    max-width:400px;
-}
-
-input{
-    width:100%;
-    padding:10px;
-    margin:10px 0;
-    background:#000;
-    border:1px solid #fff;
-    color:#fff;
-}
-
-/* ================= MOBILE ================= */
-@media(max-width:768px){
-    #cart{width:100%;}
+.footer {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #888;
 }
 </style>
+
 </head>
 
 <body>
 
-<!-- ================= VIDEO ================= -->
-<video id="bg-video" autoplay muted loop>
-    <source src="Pin by Yare Mendez on insp _ Trippy visuals_ Dark nature aesthetic_ Film texture(MP4).mp4" type="video/mp4">
-</video>
-<div class="overlay"></div>
+<div class="container">
 
-<!-- ================= LOADER ================= -->
-<div id="loader">
-    <div class="loader-bar"><span></span></div>
-    <div>حوكشه STORE</div>
-</div>
+    <div class="logo">mix</div>
+    <div class="tagline">Sip the Mix ☕</div>
 
-<!-- ================= INTRO ================= -->
-<div id="intro">
-    <div class="Picsart_26-04-17_15-18-45-258.png">ح</div>
-    <h1>حوكشه STORE</h1>
-    <p>تجربة جديدة لشراء الكتب الخارجية</p>
-    <button class="btn" onclick="enterSite()">ادخل المتجر</button>
-</div>
+    <a href="#" class="button">📋 View Menu</a>
+    <a href="#" class="button">📸 Instagram</a>
+    <a href="#" class="button">🎁 Get Offer</a>
 
-<!-- ================= HEADER ================= -->
-<header id="Picsart_26-04-17_15-18-45-258.png">
-    <div>حوكشه STORE</div>
-    <button onclick="toggleCart()">🛒</button>
-</header>
-
-<!-- ================= HERO ================= -->
-<section class="hero">
-    <h1>حوكشه STORE</h1>
-    <p>كل كتاب بتحتاجه في مكان واحد</p>
-    <button class="btn" onclick="scrollToProducts()">تصفح الكتب</button>
-</section>
-
-<!-- ================= PRODUCTS ================= -->
-<section class="products" id="products">
-    <h2>الكتب المتاحة</h2>
-    <div class="grid" id="grid"></div>
-</section>
-
-<!-- ================= CART ================= -->
-<div id="cart">
-    <h2>عربية التسوق</h2>
-    <div id="cartItems"></div>
-    <button class="btn" onclick="openCheckout()">إتمام الطلب</button>
-</div>
-
-<!-- ================= CHECKOUT ================= -->
-<div id="checkout">
-    <div class="form">
-        <h3>إتمام الطلب</h3>
-        <input placeholder="الاسم">
-        <input placeholder="رقم الهاتف">
-        <input placeholder="العنوان">
-        <button class="btn" onclick="sendOrder()">إرسال الطلب</button>
+    <div class="footer">
+        Good Coffee • Good Mood
     </div>
+
 </div>
-
-<script>
-/* ================= DATA ================= */
-const products=[
-{name:"كتاب الرياضيات الخارجي",price:180},
-{name:"كتاب الفيزياء المتقدم",price:200},
-{name:"مراجعة الكيمياء النهائية",price:165},
-{name:"الأحياء — الدليل الكامل",price:155},
-{name:"اللغة الإنجليزية المتكاملة",price:190},
-{name:"الجيولوجيا",price:145}
-];
-
-let cart=[];
-
-/* ================= INIT ================= */
-window.onload=()=>{
-    setTimeout(()=>{
-        document.getElementById("loader").style.display="none";
-        document.getElementById("intro").classList.add("active");
-    },2000);
-
-    renderProducts();
-}
-
-/* ================= INTRO ================= */
-function enterSite(){
-    document.getElementById("intro").style.display="none";
-}
-
-/* ================= PRODUCTS ================= */
-function renderProducts(){
-    const grid=document.getElementById("grid");
-    products.forEach((p,i)=>{
-        grid.innerHTML+=`
-        <div class="card" onclick="addToCart(${i})">
-            <div style="height:200px;display:flex;align-items:center;justify-content:center;">📚</div>
-            <h3>${p.name}</h3>
-            <div class="price">${p.price} جنيه</div>
-        </div>`;
-    });
-}
-
-/* ================= CART ================= */
-function toggleCart(){
-    document.getElementById("cart").classList.toggle("active");
-}
-
-function addToCart(i){
-    cart.push(products[i]);
-    renderCart();
-}
-
-function renderCart(){
-    const box=document.getElementById("cartItems");
-    box.innerHTML="";
-    cart.forEach(p=>{
-        box.innerHTML+=`<div>${p.name} - ${p.price}</div>`;
-    });
-}
-
-/* ================= CHECKOUT ================= */
-function openCheckout(){
-    document.getElementById("checkout").style.display="flex";
-}
-
-function sendOrder(){
-    let msg="طلب جديد:%0A";
-    cart.forEach(p=>{
-        msg+=p.name+" - "+p.price+"%0A";
-    });
-
-    /* === CHANGE WHATSAPP NUMBER HERE === */
-    window.open(`https://wa.me/01023708424?text=${msg}`);
-}
-
-/* ================= SCROLL ================= */
-function scrollToProducts(){
-    document.getElementById("products").scrollIntoView({behavior:"smooth"});
-}
-
-/* ================= HEADER SCROLL ================= */
-window.addEventListener("scroll",()=>{
-    if(window.scrollY>60){
-        header.classList.add("scrolled");
-    }else{
-        header.classList.remove("scrolled");
-    }
-});
-</script>
 
 </body>
 </html>
